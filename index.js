@@ -1,8 +1,14 @@
+const dotenv = require('dotenv');
 const bot = require('./src/bot');
-const config = require('./config.json');
+
+///////////////////////
+// CONFIGURE PROCESS //
+///////////////////////
+
+dotenv.config();
 
 async function main() {
-  await bot.login(config.token);
+  await bot.login(process.env.TOKEN);
 }
 
 ///////////////////

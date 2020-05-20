@@ -1,4 +1,4 @@
 node_modules/
 
 # Private config for bot, which includes the token
-config.json
+.env

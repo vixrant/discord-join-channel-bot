@@ -25,5 +25,4 @@ around the project. I will work on a more generalised message template system la
 
 ### Bot Token File
 
-Create a file called `config.json` and add a token field. I assume you can google how to set-up a discord bot.
-A sample `config.sample.json` file has been provided.
+Create an env config file called `.env` and add a `TOKEN=` field. I assume you can google how to set-up a discord bot.
