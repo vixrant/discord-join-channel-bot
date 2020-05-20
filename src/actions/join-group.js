@@ -1,10 +1,10 @@
-exports.JOIN_GROUP_REGEX = /join ([\w-]+)/i;
+const JOIN_GROUP_REGEX = /join ([\w-]+)/i;
 
 /**
  * @argument {import('discord.js').Message} message
  * @argument {RegExpExecArray} match
  */
-exports.joinGroup = async (message, match) => {
+async function joinGroup (message, match) {
   const { channel, author, guild } = message;
 
   // --- Exract group name
@@ -32,4 +32,6 @@ exports.joinGroup = async (message, match) => {
   });
 
   channel.send(`Hey ${author}, you've been added to ${groupChannel}. Do enjoy studying and interact with others!`);
-};
+}
+
+module.exports = [JOIN_GROUP_REGEX, joinGroup];

@@ -1,4 +1,4 @@
-const bot = require('./bot');
+const bot = require('./src/bot');
 const config = require('./config.json');
 
 async function main() {

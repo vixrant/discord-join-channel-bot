@@ -16,5 +16,6 @@ module.exports = {
   },
   rules: {
     'spaced-comment': 0,
+    'no-restricted-syntax': 0,
   },
 };
