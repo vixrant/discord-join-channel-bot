@@ -21,6 +21,5 @@ module.exports = async function matchIntent(message) {
       action(message, match);
       break;
     }
-
   }
 };

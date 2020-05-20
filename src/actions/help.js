@@ -1,3 +1,8 @@
+/**
+ * Message regex to check for.
+ * Example:
+ *  help
+ */
 const HELP_REGEX = /help/i;
 
 /**

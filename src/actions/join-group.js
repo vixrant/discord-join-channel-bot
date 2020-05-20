@@ -1,10 +1,16 @@
+/**
+ * Message regex to check for.
+ * Example:
+ *  join frontend
+ *  join mobile-dev
+ */
 const JOIN_GROUP_REGEX = /join ([\w-]+)/i;
 
 /**
  * @argument {import('discord.js').Message} message
  * @argument {RegExpExecArray} match
  */
-async function joinGroup (message, match) {
+async function joinGroup(message, match) {
   const { channel, author, guild } = message;
 
   // --- Exract group name
