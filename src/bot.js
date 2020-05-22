@@ -7,12 +7,13 @@ const logger = require('./helpers/logger');
 /////////////////
 
 client.on('message', async (message) => {
-  const { mentions } = message;
+  const { mentions, author, channel } = message;
 
   if (!mentions.has(client.user)) {
     return;
   }
 
+  logger.info(`Unibot mentioned by ${author.username} in ${channel.name}`);
   matchIntent(message);
 });
 

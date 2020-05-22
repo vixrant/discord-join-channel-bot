@@ -1,24 +1,32 @@
 const dotenv = require('dotenv');
+const mongoose = require('mongoose');
 const logger = require('./src/helpers/logger');
 const bot = require('./src/bot');
 const web = require('./src/web');
 
 ///////////////////////
-// CONFIGURE PROCESS //
+// Configure Process //
 ///////////////////////
 
 dotenv.config();
 
 async function main() {
-  await bot.login(process.env.TOKEN);
+  await mongoose.connect(process.env.MONGODB_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
+  logger.info('👾 Mongoose Connected');
 
   web.listen(process.env.PORT, () => {
-    logger.info('👾 HTTP Server Active');
+    logger.info('🔹 HTTP Server Active');
   });
+
+  await bot.login(process.env.TOKEN);
+  logger.info('🤖 Bot ready');
 }
 
 ///////////////////
-// START THE BOT //
+// Start the bot //
 ///////////////////
 
 main();

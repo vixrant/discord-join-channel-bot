@@ -1,3 +1,5 @@
+const dbi = require('../db/interface');
+
 /**
  * Message regex to check for.
  * Example:
@@ -31,6 +33,10 @@ async function joinGroup(message, match) {
     return;
   }
 
+  // --- Update our db in background
+
+  dbi.addUserToGroup(author, groupChannel);
+
   // --- Add user to channel
 
   await groupChannel.updateOverwrite(author, {
@@ -40,4 +46,7 @@ async function joinGroup(message, match) {
   channel.send(`Hey ${author}, you've been added to ${groupChannel}. Do enjoy studying and interact with others!`);
 }
 
-module.exports = [JOIN_GROUP_REGEX, joinGroup];
+module.exports = {
+  regex: JOIN_GROUP_REGEX,
+  action: joinGroup,
+};

@@ -14,8 +14,8 @@ module.exports = async function matchIntent(message) {
 
   for (const t of mapRegexAction) {
     // Match regex
-    const [r, action] = t;
-    const match = r.exec(content);
+    const { regex, action } = t;
+    const match = regex.exec(content);
 
     if (match) {
       action(message, match);
