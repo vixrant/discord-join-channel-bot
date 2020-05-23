@@ -55,7 +55,7 @@ async function logJoinGroup(message, match) {
     },
   });
 
-  logger.info(`User doc ${doc.id} updated with ${channelName}`);
+  logger.log(`User doc ${doc.id} updated with ${channelName}`);
 }
 
 module.exports = logJoinGroup;

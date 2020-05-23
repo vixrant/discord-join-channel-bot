@@ -1,4 +1,4 @@
-const intentStream = require('../../events');
+const intentStream = require('../../events/stream');
 const e = require('../../events/constants');
 
 /**

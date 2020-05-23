@@ -1,28 +1,25 @@
-const dotenv = require('dotenv');
 const mongoose = require('mongoose');
-const logger = require('./src/helpers/logger');
 const bot = require('./src/bot');
 const web = require('./src/web');
-
-///////////////////////
-// Configure Process //
-///////////////////////
-
-dotenv.config();
+const config = require('./src/config');
+const logger = require('./src/helpers/logger');
 
 async function main() {
-  await mongoose.connect(process.env.MONGODB_URL, {
+  // --- DB connect
+  await mongoose.connect(config.MONGODB_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   });
   logger.priority.info('👾 Mongoose Connected');
 
-  web.listen(process.env.PORT, () => {
+  // --- Discord connect
+  await bot.login(config.DISCORD_TOKEN);
+  logger.priority.info('🤖 Bot ready');
+
+  // --- HTTP connect
+  web.listen(config.PORT, () => {
     logger.priority.info('🔹 HTTP Server Active');
   });
-
-  await bot.login(process.env.TOKEN);
-  logger.priority.info('🤖 Bot ready');
 }
 
 ///////////////////

@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 
-const intentStream = require('./events');
+const intentStream = require('./events/stream');
 const serviceMap = require('./service-map');
 const logger = require('./helpers/logger');
 
@@ -29,7 +29,7 @@ client.on('message', async (message) => {
     return;
   }
 
-  logger.info(`Unibot mentioned by ${author.username} in ${channel.name}`);
+  logger.log(`Unibot mentioned by ${author.username} in ${channel.name}`);
 
   intentStream.evaluateMessage(message);
 });

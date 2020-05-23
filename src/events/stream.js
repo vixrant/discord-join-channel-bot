@@ -18,14 +18,14 @@ class DiscordIntentEmitter extends EventEmitter {
 
       const match = regex.exec(content);
       if (match) {
-        logger.info(`Message '${content}' matched ${event}`);
+        logger.log(`Message '${content}' matched ${event}`);
 
         this.emit(event, message, match);
         return;
       }
     }
 
-    logger.info(`No event matched for '${content}'`);
+    logger.log(`No event matched for '${content}'`);
   }
 }
 
