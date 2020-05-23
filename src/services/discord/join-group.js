@@ -1,12 +1,5 @@
-const dbi = require('../db/interface');
-
-/**
- * Message regex to check for.
- * Example:
- *  join frontend
- *  join mobile-dev
- */
-const JOIN_GROUP_REGEX = /join ([\w-]+)/i;
+const intentStream = require('../../events');
+const e = require('../../events/constants');
 
 /**
  * @argument {import('discord.js').Message} message
@@ -33,10 +26,6 @@ async function joinGroup(message, match) {
     return;
   }
 
-  // --- Update our db in background
-
-  dbi.addUserToGroup(author, groupChannel);
-
   // --- Add user to channel
 
   await groupChannel.updateOverwrite(author, {
@@ -44,9 +33,10 @@ async function joinGroup(message, match) {
   });
 
   channel.send(`Hey ${author}, you've been added to ${groupChannel}. Do enjoy studying and interact with others!`);
+
+  // --- Dispatch event
+
+  intentStream.emit(e.EVENT_JOIN_GROUP_SUCCESS, message, match);
 }
 
-module.exports = {
-  regex: JOIN_GROUP_REGEX,
-  action: joinGroup,
-};
+module.exports = joinGroup;

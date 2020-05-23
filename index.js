@@ -15,18 +15,18 @@ async function main() {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   });
-  logger.info('👾 Mongoose Connected');
+  logger.priority.info('👾 Mongoose Connected');
 
   web.listen(process.env.PORT, () => {
-    logger.info('🔹 HTTP Server Active');
+    logger.priority.info('🔹 HTTP Server Active');
   });
 
   await bot.login(process.env.TOKEN);
-  logger.info('🤖 Bot ready');
+  logger.priority.info('🤖 Bot ready');
 }
 
 ///////////////////
 // Start the bot //
 ///////////////////
 
-main();
+main().catch(logger.error);

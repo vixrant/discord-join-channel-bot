@@ -1,8 +1,7 @@
 module.exports = {
   env: {
-    browser: true,
-    commonjs: true,
-    es6: true,
+    node: true,
+    mongo: true,
   },
   extends: [
     'airbnb-base',
@@ -17,5 +16,6 @@ module.exports = {
   rules: {
     'spaced-comment': 0,
     'no-restricted-syntax': 0,
+    'guard-for-in': 0,
   },
 };

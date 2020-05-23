@@ -1,4 +1,5 @@
-const { User } = require('./models');
+const { User } = require('../../db');
+const logger = require('../../helpers/logger');
 
 ///////////////////////
 // Utility functions //
@@ -32,22 +33,29 @@ async function findOrCreateUser(user) {
   return doc;
 }
 
-/////////////////////////
-// Interface functions //
-///////////////////////
+//////////////////////
+// Service function //
+//////////////////////
 
 /**
- * @param {import('discord.js').User} user
- * @param {import('discord.js').TextChannel} channel
+ * @argument {import('discord.js').Message} message
+ * @argument {RegExpExecArray} match
  */
-exports.addUserToGroup = async (user, channel) => {
-  const doc = await findOrCreateUser(user);
+async function logJoinGroup(message, match) {
+  const { author } = message;
+  const doc = await findOrCreateUser(author);
 
-  const channelName = channel.name;
+  const channelName = match[1];
+
+  // --- Update mongodb user
 
   await doc.updateOne({
     $push: {
       groups: channelName,
     },
   });
-};
+
+  logger.info(`User doc ${doc.id} updated with ${channelName}`);
+}
+
+module.exports = logJoinGroup;

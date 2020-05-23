@@ -1,10 +1,26 @@
-const client = require('./client');
-const matchIntent = require('./helpers/intent');
+const Discord = require('discord.js');
+
+const intentStream = require('./events');
+const serviceMap = require('./service-map');
 const logger = require('./helpers/logger');
 
-/////////////////
-// Add actions //
-/////////////////
+///////////////////
+// Define client //
+///////////////////
+
+const client = new Discord.Client();
+
+//////////////////
+// Add services //
+//////////////////
+
+for (const e in serviceMap) {
+  intentStream.on(e, serviceMap[e]);
+}
+
+/////////////////////////////////
+// Subscribe to discord events //
+/////////////////////////////////
 
 client.on('message', async (message) => {
   const { mentions, author, channel } = message;
@@ -14,7 +30,8 @@ client.on('message', async (message) => {
   }
 
   logger.info(`Unibot mentioned by ${author.username} in ${channel.name}`);
-  matchIntent(message);
+
+  intentStream.evaluateMessage(message);
 });
 
 ////////////
