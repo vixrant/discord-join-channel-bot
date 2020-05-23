@@ -25,9 +25,9 @@ async function findOrCreateUser(user) {
       discordId,
       discordName,
     });
-    newUser.save();
+    const newDoc = await newUser.save();
 
-    return newUser;
+    return newDoc;
   }
 
   return doc;
@@ -50,7 +50,7 @@ async function logJoinGroup(message, match) {
   // --- Update mongodb user
 
   await doc.updateOne({
-    $push: {
+    $addToSet: {
       groups: channelName,
     },
   });
